@@ -1,0 +1,30 @@
+#include <bits/stdc++.h> 
+long long maxSubarraySum(int arr[], int n)
+{
+    /*
+        Don't write main().
+        Don't read input, it is passed as function argument.    
+        No need to print anything.
+        Taking input and printing output is handled automatically.
+    */
+ //  Brute force give TLE
+    // long long ans = 0;
+    // for(int i =0; i<n; i++){
+    //     long long sum = 0;
+    //     for(int j =i;j<n;j++ ){
+    //         sum+=arr[j];
+    //         ans = max(sum,ans);
+    //     }
+    // }
+    // return ans;
+
+    // kadane Algorithm;
+   long long ans = INT_MIN, sum =0;
+   for(int i = 0; i<n; i++){
+       sum+=arr[i];
+       if(sum>ans)ans = sum;
+       if(sum<0)sum =0;
+   }
+   if(sum>ans)ans = sum;
+    return ans;
+}
