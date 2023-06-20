@@ -1,0 +1,11 @@
+int removeDuplicates(vector<int> &arr, int n) {
+	// Write your code here.
+	int i = 0,j=0;
+	while(i<n){
+		arr[j++]=arr[i];
+		i++;
+		while( i<n&&arr[i-1]==arr[i])i++;
+	}
+
+	return j;
+}
