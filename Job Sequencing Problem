@@ -1,0 +1,28 @@
+#include <bits/stdc++.h> 
+bool comp(vector<int>a,vector<int>b){
+    return a[1]>b[1];
+}
+int jobScheduling(vector<vector<int>> &jobs)
+{
+    // Write your code here
+    sort(jobs.begin(),jobs.end(),comp);
+    int maxi = jobs[0][0];
+    for(auto a:jobs){
+        maxi = max(a[0],maxi);
+
+    }
+    vector<int>check(maxi+1,-1);
+    int profit = 0;
+    int job = 0;
+    for(auto a: jobs){
+        for(int j = a[0];j>0;j--){
+            if(check[j]==-1){
+                check[j] = j;
+                job++;
+                profit+=a[1];
+                break;
+            }
+        }
+    }
+   return profit;
+}
