@@ -1,0 +1,32 @@
+#include <bits/stdc++.h> 
+bool isp(string &s,int st,int e){
+        while(st<=e){
+            if(s[st++]!=s[e--])return false;
+        }
+        return true;
+    }
+
+    void f(string &s,int ind, vector<string>&ds,vector<vector<string>>&ans){
+        if(ind == s.size()){
+            ans.push_back(ds);
+            return;
+        }
+
+        for(int i = ind; i<s.size(); i++){
+            if(isp(s,ind,i)){
+                ds.push_back(s.substr(ind,i-ind+1));
+                f(s,i+1,ds,ans);
+                ds.pop_back();
+            }
+        }
+    }
+
+    
+vector<vector<string>> partition(string &s) 
+{
+    // Write your code here.
+     vector<vector<string>> ans;
+        vector<string>ds;
+        f(s,0,ds,ans);
+        return ans;
+}
