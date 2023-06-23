@@ -1,0 +1,31 @@
+#include <bits/stdc++.h> 
+
+void f(string &s,string &ds,vector<int> &arr,vector<string> &ans,int n){
+    if(ds.size()==n){
+        ans.push_back(ds);
+        return;
+    }
+
+    for(int i = 0; i<n; i++){
+        if(arr[i]!=1){
+            ds.push_back(s[i]);
+            arr[i]=1;
+            f(s,ds,arr,ans,n);
+            arr[i]=0;
+            ds.pop_back();
+
+        }
+    }
+}
+vector<string> findPermutations(string &s) {
+    // Write your code here.
+    vector<string> ans;
+    string ds ="";
+    int n = s.size();
+    vector<int> arr(n,0);
+    f(s,ds,arr,ans,n);
+
+    return ans;
+
+
+}
