@@ -1,0 +1,80 @@
+// code studio
+void f(int col,int n,vector<int>&ds ,vector<vector<int> >& ans,vector<int> &lrow, vector<int> &ldia, vector<int> &udia){
+       if(col == n){
+       ans.push_back(ds);
+           return ;
+       }
+
+       for(int row = 0; row<n;row++){
+           
+           if(lrow[row]==0 && ldia[row+col]==0 && udia[n-1+(col-row)]==0){
+               ds[row*n+col]=1;
+               lrow[row]=1;
+               ldia[row+col]=1;
+               udia[n-1+(col-row)]=1;
+               f(col+1,n,ds,ans,lrow,ldia,udia);
+              
+             ds[row*n+col]=0;
+               lrow[row]=0;
+               ldia[row+col]=0;
+               udia[n-1+(col-row)]=0;
+
+           }
+       }
+   }
+vector<vector<int>> solveNQueens(int n) {
+    // Write your code here.
+     vector<int>lrow(n,0);
+        vector<int>ldia(2*n-1,0);
+        vector<int> udia(2*n-1);
+        bool  check = false;
+        vector<vector<int>> ans;
+        vector<int>ds(n*n,0);
+
+        f(0,n,ds,ans,lrow,ldia,udia);
+
+        return ans;
+}
+
+
+
+
+// leet code
+
+class Solution {
+public:
+   void f(int col,int n,vector<string>&ds,vector<vector<string> >& ans,vector<int> &lrow, vector<int> &ldia, vector<int> &udia){
+       if(col == n){
+           ans.push_back(ds);
+           return ;
+       }
+
+       for(int row = 0; row<n;row++){
+           if(lrow[row]==0 && ldia[row+col]==0 && udia[n-1+(col-row)]==0){
+               ds[row][col] = 'Q';
+               lrow[row]=1;
+               ldia[row+col]=1;
+               udia[n-1+(col-row)]=1;
+               f(col+1,n,ds,ans,lrow,ldia,udia);
+                ds[row][col] = '.';
+               lrow[row]=0;
+               ldia[row+col]=0;
+               udia[n-1+(col-row)]=0;
+
+           }
+       }
+   }
+    vector<vector<string>> solveNQueens(int n) {
+        vector<int>lrow(n,0);
+        vector<int>ldia(2*n-1,0);
+        vector<int> udia(2*n-1);
+        vector<string> ds;
+        string s(n,'.');
+        vector<vector<string>>ans;
+        for(int i = 0; i<n; i++){
+            ds.push_back(s);
+        }
+        f(0,n,ds,ans,lrow,ldia,udia);
+        return ans;
+    }
+};
