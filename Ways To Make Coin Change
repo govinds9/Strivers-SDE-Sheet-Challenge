@@ -1,0 +1,26 @@
+#include<bits/stdc++.h>
+
+
+long countWaysToMakeChange(int *arr, int n, int T)
+{
+    //Write your code here
+     vector<long>prev(T+1,0);
+    vector<long>cur(T+1,0);
+
+  for(int i = 0; i<=T; i++){
+    prev[i] = (T%arr[0]==0);
+  }
+
+
+    for(int i = 1; i<n; i++){
+        for(int j = 0; j<=T;j++){
+            long ntake = prev[j];
+            long take = 0;
+            if(arr[i]<=j)take = cur[j-arr[i]];
+           cur[j] = take +ntake ;
+        }
+        prev =cur;
+    }
+    return prev[T];
+
+}
