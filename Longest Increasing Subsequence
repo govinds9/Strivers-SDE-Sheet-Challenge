@@ -1,0 +1,50 @@
+// code studio 
+
+#include <bits/stdc++.h> 
+int maxIncreasingDumbbellsSum(vector<int> &nums, int n)
+{
+	// Write your code here
+	
+    vector<vector<int>>dp(n+1,vector<int>(n+1,0));
+
+    for(int i = n-1; i>=0;i--){
+        for(int j = n;j>=0;j--){
+            int len = dp[i+1][j];
+            if(j==0 || nums[i]>nums[j-1])
+            len = max(len,nums[i]+dp[i+1][i+1]);
+            dp[i][j]= len;
+        }
+    }
+
+    return dp[0][0];
+}
+
+
+
+// leetcode 
+class Solution {
+public:
+    int f(int ind, int prev,int n,vector<int>& nums,vector<vector<int>>&dp){
+        if(ind==n)return 0;
+        if(dp[ind][prev+1]!=-1)return dp[ind][prev+1];
+        int len =f(ind+1,prev,n,nums,dp);
+        if(prev==-1|| nums[ind]>nums[prev])len = max(len,1+f(ind+1,ind,n,nums,dp));
+        return dp[ind][prev+1] =len;
+    }
+    int lengthOfLIS(vector<int>& nums) {
+        int n = nums.size();
+    vector<vector<int>>dp(n+1,vector<int>(n+1,0));
+
+    for(int i = n-1; i>=0;i--){
+        for(int j = n;j>=0;j--){
+            int len = dp[i+1][j];
+            if(j==0 || nums[i]>nums[j-1])
+            len = max(len,1+dp[i+1][i+1]);
+            dp[i][j]= len;
+        }
+    }
+
+    return dp[0][0];
+      
+    }
+};
