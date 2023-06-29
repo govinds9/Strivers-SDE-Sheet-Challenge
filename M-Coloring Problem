@@ -1,0 +1,28 @@
+
+bool safe(vector<vector<int>> &mat,int k,int i,vector<int>&color){
+    for(int j = 0; j<mat.size();j++){
+        if(mat[j][i]==1 && color[j]==k)return false;
+    }
+    return true;
+}
+bool solve(vector<vector<int>> &mat,int m,int i,vector<int>&color,int n){
+    if(i==n)return true;
+
+    for(int k = 1;k<=m;k++){
+        if(safe(mat,k,i,color)){
+            color[i]=k;
+            if(solve(mat,m,i+1,color,n))return true;
+            color[i]=0;
+        }
+    }
+return false;
+}
+string graphColoring(vector<vector<int>> &mat, int m) {
+    // Write your code here
+    int n = mat.size();
+    vector<int>color(n,0);
+
+    return solve(mat,m,0,color,n)?"YES":"NO";
+
+
+}
